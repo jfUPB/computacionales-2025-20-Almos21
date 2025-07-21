@@ -46,3 +46,48 @@ M=D
 
 #### ¿Qué diferencia hay entre los datos almancenados en la memoria ROM y en la RAM?
 Los datos de la ram se ven afectados por los de la ROM pero la RAM no afecta a la ROM, además hasta ahora no parece haber manera destro del código de modificar los datos de la ROM, estos están ahi es para ser leidos.
+
+### Actividad 2
+Nuevo código
+``` asm
+@SCREEN
+D=A
+@i
+M=D
+(READKEYBOARD)
+@KBD
+D=M
+@KEYPRESSED
+D;JNE
+@i
+D=M
+@SCREEN
+D=D-A
+@READKEYBOARD
+D;JLE
+@i
+M=M-1
+A=M
+M=0
+@READKEYBOARD
+0;JMP
+
+(KEYPRESSED)
+@i
+D=M
+@KBD
+D=D-A
+@READKEYBOARD
+D;JGE
+@16
+A=M
+M=-1
+@i
+M=M+1
+@READKEYBOARD
+0;JMP
+```
+#### Identifica una instrucción que use la ALU y explica qué hace.
+ALU es la unidad encargada de realizar los calculos y comparaciones en un proceso, en este caso por ejemplo hay una en la línea 23 con "D=D-A" ya que aquí hay una operación de resta, esta línea se encarga de asignarle a D el resultado de esta resta.
+#### ¿Para qué sirve el registro PC?
+Es el que indica que instrucción será la siguiente que ser realizada, modificar esta variable es lo que posibilita el 
