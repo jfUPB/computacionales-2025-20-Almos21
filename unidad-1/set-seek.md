@@ -90,4 +90,5 @@ M=M+1
 #### Identifica una instrucción que use la ALU y explica qué hace.
 ALU es la unidad encargada de realizar los calculos y comparaciones en un proceso, en este caso por ejemplo hay una en la línea 23 con "D=D-A" ya que aquí hay una operación de resta, esta línea se encarga de asignarle a D el resultado de esta resta.
 #### ¿Para qué sirve el registro PC?
-Es el que indica que instrucción será la siguiente que ser realizada, modificar esta variable es lo que posibilita el 
+Es el que indica que instrucción será la siguiente que ser realizada, modificar esta variable es lo que posibilita el generar ciclos o condicionales, permitiendo viajar a diferentes instrucciones a lo largo del código.
+#### 
