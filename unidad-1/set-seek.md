@@ -89,6 +89,18 @@ M=M+1
 ```
 #### Identifica una instrucción que use la ALU y explica qué hace.
 ALU es la unidad encargada de realizar los calculos y comparaciones en un proceso, en este caso por ejemplo hay una en la línea 23 con "D=D-A" ya que aquí hay una operación de resta, esta línea se encarga de asignarle a D el resultado de esta resta.
+
 #### ¿Para qué sirve el registro PC?
 Es el que indica que instrucción será la siguiente que ser realizada, modificar esta variable es lo que posibilita el generar ciclos o condicionales, permitiendo viajar a diferentes instrucciones a lo largo del código.
-#### 
+
+#### ¿Cuál es la diferencia entre @i y @READKEYBOARD?
+En el código @i indica una posición en la RAM donde se guardará o el número 16318 (@screen) o 24576 (@KBD) los cuales cambian dependiendo de si se presiona o no una tecla, además es desde 16318 hacia abajo que cambian los datos guardados a -1 al momento de ser apretada la tecla. En @READKEYBOARD se almacena el número de instrucción donde se almacena el código de la tecla pulsada, este es el que despues da valor a D y determina si el ciclo continua o a travez de los condicionales dirige a otra parte de las instrucciones.
+
+#### Describe qué se necesita para leer el teclado y mostrar información en la pantalla.
+Además de permitir usar el teclado de forma manual en el codigo se necesitan instrucciones como @SCREEN y @KBD.
+
+#### Identifica un bucle en el programa y explica su funcionamiento.
+Desde la línea 4 hasta la 13 hay un ciclo que se perpetua mientras al pasar por la línea 7 D sea igual a 0, este valor depende de si se presiona o nó una tecla, ya que la hacerlo se guarda el código de la tecla en @KBD y este se asigna a D donde se pasa a otras instrucciones.
+
+#### Identifica una condición en el programa y explica su funcionamiento.
+Continuando con lo anterior, hasta que no se cumpla la condición de que D sea diferente a 0 el bucle continua, cambiar esto es lo que permite que el programa continue y se ejecute.
