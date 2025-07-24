@@ -14,4 +14,20 @@ ejemplos: - @12 (asigna el valor 12 a A)
 #### Explica la función de los siguientes componentes del computador Hack: el registro D, el registro A y la ALU.
 El registro D tiene la capacidad de poder asignarle valores con los cuales ejecutar después las instrucciones, el registro A sirve para que el sistema tenga de referencia a que puntos debe guardar los datos o la información, o en general para las instrucciones. La ALU es la encargada de las operaciones lógicas que realiza el programa.
 
-#### ¿Cómo se implementa un salto condicional en Hack? Describe un ejemplo (p. ej., saltar si el valor de D es mayor que cero).
+#### ¿Cuál es la diferencia entre la instrucción D=M y la instrucción M=D?
+D=M asigna a el registro D el valor que haya en la dirección de memoria indicada por A, mientras que en M=D ocurre lo contrario, el computador identifica una dirección de memoria indicada por A y asigna a esta dirección el valor almacenado en el registro D.
+
+#### Describe brevemente qué se necesita para leer un valor del teclado (KBD) y para “pintar” un pixel en la pantalla (SCREEN).
+Para leer alguna tecla del teclado el programa necesita obtener el valor de la tecla presionada esto a través de codigos que hay asignados para cada tecla, en cuanto a poder pintar un pixel el programa necesita un valor que instruya que grupo de pixeles es necesario pintar al momento de activar la instrucción.
+
+#### ¿Cuál fue el concepto o actividad más desafiante de esta unidad para ti y por qué?
+La actividad 02, fue complicado y no logré del todo deducir como funcionaban las instrucciones, estuve bastante tiempo mirando a la pantalla releyendo el programa intentando entender como hacía lo que hacía.
+
+#### La metodología de “predecir, ejecutar, observar y reflexionar” fue central en nuestras actividades. ¿En qué momento esta metodología te resultó más útil para entender algo que no tenías claro?
+En la mayoria de actividades, más que nada en las primeras 2
+
+#### Describe un momento “¡Aha!” que hayas tenido durante estas dos semanas. ¿Qué estabas haciendo cuando ocurrió?
+En la primera actividad cuando entendi los funcionamientos de los registros.
+
+#### Pensando en la próxima unidad, ¿Qué harás diferente en tu proceso de estudio para aprender de manera más efectiva?
+Tener mejor en cuenta los tiempos de entrega.
