@@ -90,3 +90,54 @@ M=-1
 @LEER
 0;JMP
 ```
+#### ¿Cómo se traduce esto a C++?
+``` c++
+Memoria[SCREEN] = -1;;
+CONTADOR = 0;
+int tmp;
+while(1)
+{
+tmp= KBD;
+if(tmp == 100){
+//DERECHA
+}
+else if (tmp == 105){
+//IZQUIERDA
+}
+}
+Memoria[CONTADOR+SCREEN]=0;
+CONTADOR = CONTADOR +1;
+Memoria[CONTADOR+SCREEN] = -1
+
+```
+### Actividad 04
+Un for como este:
+````c++
+//Adds 1+...+100.
+int sum=0;
+for(int i = 1; i <=100; i++){
+   sum+= i;
+}
+````
+puede ser convertido en un while facilmente, ya que despues de todo es un ciclo que va verificando si una variable cumple una condición e ir sumandole a esta, esto podria hacerse así:
+````c++
+ int i=1;
+ int sum=0;
+
+ while(i <=100){
+    sum+= i;
+    i++;
+ }
+````
+esto es igual a el primer código mostrado en la guía, por ende el el código de ensamblador resultante sería el mismo, debido a que ambos códigos realizan la misma acción.
+
+### Actividad 05
+int* ptr; Declaro un puntero; ptr, ptr es una variable
+
+int i = 5;
+int* ptr = &i;
+
+leer con el puntero
+int j= *ptr;
+Escribir con el puntero
+*ptr=25;
