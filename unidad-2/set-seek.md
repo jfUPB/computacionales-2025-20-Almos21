@@ -8,9 +8,9 @@ Para iniciar se busca cual es la dirección de memoria a la que @SCREEN se refie
 @SCREEN
 M=1
 ```
-#### ¿Cómo se traduce esto a C++?
+#### ¿Cómo se traduce esto a C#?
 Ahora lo pasamos a c++ esto para poder entender como puede esto ser pasado a un lenguaje de alto nivel, aquí podemos relacionarlo a como en C++ asignamos un valor a esta variable, solo que aquí hay que encontrar como logar que el compilador asigne esta variable a la dirección 16384
-```c++
+```c#
 screen = 1; //forzar al compilador para que asigne la variable screen a la dirección 16384
 ```
 ### Actividad 02
@@ -19,8 +19,8 @@ Para esto todos los bit deben estar en 1, al pasar esto a decimal encontramos qu
 @SCREEN
 M=-1
 ```
-#### ¿Cómo se traduce esto a C++?
-```c++
+#### ¿Cómo se traduce esto a C#?
+```c#
 screen = -1; //forzar al compilador para que asigne la variable screen a la dirección 16384
 ```
 
@@ -90,8 +90,8 @@ M=-1
 @LEER
 0;JMP
 ```
-#### ¿Cómo se traduce esto a C++?
-``` c++
+#### ¿Cómo se traduce esto a C#?
+``` c#
 Memoria[SCREEN] = -1;;
 CONTADOR = 0;
 int tmp;
@@ -112,7 +112,7 @@ Memoria[CONTADOR+SCREEN] = -1
 ```
 ### Actividad 04
 Un for como este:
-````c++
+````c#
 //Adds 1+...+100.
 int sum=0;
 for(int i = 1; i <=100; i++){
@@ -120,7 +120,7 @@ for(int i = 1; i <=100; i++){
 }
 ````
 puede ser convertido en un while facilmente, ya que despues de todo es un ciclo que va verificando si una variable cumple una condición e ir sumandole a esta, esto podria hacerse así:
-````c++
+````c#
  int i=1;
  int sum=0;
 
