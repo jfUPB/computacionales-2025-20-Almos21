@@ -8,9 +8,9 @@ Para iniciar se busca cual es la dirección de memoria a la que @SCREEN se refie
 @SCREEN
 M=1
 ```
-#### ¿Cómo se traduce esto a C#?
+#### ¿Cómo se traduce esto a C++?
 Ahora lo pasamos a c++ esto para poder entender como puede esto ser pasado a un lenguaje de alto nivel, aquí podemos relacionarlo a como en C++ asignamos un valor a esta variable, solo que aquí hay que encontrar como logar que el compilador asigne esta variable a la dirección 16384
-```c#
+```c++
 screen = 1; //forzar al compilador para que asigne la variable screen a la dirección 16384
 ```
 ### Actividad 02
@@ -19,8 +19,8 @@ Para esto todos los bit deben estar en 1, al pasar esto a decimal encontramos qu
 @SCREEN
 M=-1
 ```
-#### ¿Cómo se traduce esto a C#?
-```c#
+#### ¿Cómo se traduce esto a C++?
+```c++
 screen = -1; //forzar al compilador para que asigne la variable screen a la dirección 16384
 ```
 
@@ -90,8 +90,8 @@ M=-1
 @LEER
 0;JMP
 ```
-#### ¿Cómo se traduce esto a C#?
-``` c#
+#### ¿Cómo se traduce esto a C++?
+``` c++
 Memoria[SCREEN] = -1;;
 CONTADOR = 0;
 int tmp;
@@ -112,7 +112,7 @@ Memoria[CONTADOR+SCREEN] = -1
 ```
 ### Actividad 04
 Un for como este:
-````c#
+````c++
 //Adds 1+...+100.
 int sum=0;
 for(int i = 1; i <=100; i++){
@@ -120,7 +120,7 @@ for(int i = 1; i <=100; i++){
 }
 ````
 puede ser convertido en un while facilmente, ya que despues de todo es un ciclo que va verificando si una variable cumple una condición e ir sumandole a esta, esto podria hacerse así:
-````c#
+````c++
  int i=1;
  int sum=0;
 
@@ -129,15 +129,81 @@ puede ser convertido en un while facilmente, ya que despues de todo es un ciclo 
     i++;
  }
 ````
-esto es igual a el primer código mostrado en la guía, por ende el el código de ensamblador resultante sería el mismo, debido a que ambos códigos realizan la misma acción.
+esto es igual a el primer código mostrado en la guía, por ende el código ensamblador resultante debe ser el mismo:
+````asm
+ @i 
+ M=1
+ @sum 
+ M=0 
+ (LOOP)
+ @i
+ D=M 
+ @100
+ D=D-A 
+ @END
+ D;JGT 
+ @i
+ D=M 
+ @sum
+ M=D+M 
+ @i
+ M=M+1 
+ @LOOP
+ 0;JMP
+ (END)
+ @END
+ 0;JMP 
+````
+Este es el mismo código del for inicial, es posible observar como era posible convertir el for en while entendiendo la lógica de este, y como se replica la misma lógica de ir sumando valores a una variable y verificando si esta cumple con una condición asignada constantemente y mientras esto no se cumpla se reinicie el ciclo.
 
 ### Actividad 05
-int* ptr; Declaro un puntero; ptr, ptr es una variable
-
-int i = 5;
-int* ptr = &i;
-
-leer con el puntero
-int j= *ptr;
-Escribir con el puntero
-*ptr=25;
+En esta actividad hay que pasar el código de c++ a uno en lenguaje ensamblador entendiendo el uso de los punteros y como replicar su función, para el primero este fue mi resultado:
+(Original)
+````c++
+int a = 10;
+int* p;
+p = &a;
+*p = 20;
+````
+(Ensamblador)
+````asm
+@10
+D=A
+@i
+M=D
+D=A
+@sum
+M=D
+@20
+D=A
+@sum
+A=M
+M=D
+````
+Ahora el segundo código, en este la intención es establecer dos variables y un apuntador, y que el puntero tome la posición de memoria de a y despues b tenga asignado el valor de la variable a la que apunta p, en el código de ensamblador lo hice definiendo primero b y guardando el valor 5 en su espacio de memoria designado, esto para que fuera más sencillo el proceso y a estuviera antes que la instancia del puntero en el código:
+(Original)
+````c++
+int a = 10;
+int b = 5;
+int *p;
+p = &a;
+b = *p;
+````
+(Ensamblador)
+```` asm
+@5
+D=A
+@sum
+M=D
+@10
+D=A
+@i
+M=D
+D=A
+@ptr
+M=D
+A=M
+D=M
+@sum
+M=D
+````
