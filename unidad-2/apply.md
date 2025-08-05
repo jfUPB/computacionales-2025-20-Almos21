@@ -163,5 +163,7 @@ D;JGT
 @END
 0;JMP 
 ````
-![Pantallazo prueba](<img width="1239" height="935" alt="image" src="https://github.com/user-attachments/assets/9b4c41ec-a570-49d4-9400-65ec6fec70ff" />)
+Imagen de la prueba final:
+<img width="1239" height="935" alt="image" src="https://github.com/user-attachments/assets/9b4c41ec-a570-49d4-9400-65ec6fec70ff" />
+
 
