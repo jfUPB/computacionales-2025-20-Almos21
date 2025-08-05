@@ -108,6 +108,9 @@ D;JGT
 @EEND
 0;JMP 
 ````
+#### Prueba Cuatro (Programa final)
+En esta última prueba me di cuenta que el error estaba en el momento de igualar D a el valor de el contenido de cada espacio de memoria del arreglo, D que eventualmente sería sumada con sum, estaba igualando D con A y no con M. Ahora el programa funciona correctamente, almacena un arreglo con valores desde 1 a 10 en 10 espacios de memoria diferentes y después asigna a la variable sum (que aquí es un espacio de memoria) la suma total de todos estos números entre si)
+```` asm
 @CONTADOR
 M=0
 @18
@@ -145,17 +148,20 @@ D=M
 M=M+1
 D=M
 A=D
-D=A
+D=M
 @sum
 M=D+M
 @POSICION
 D=M
 @27
 D=D-A 
-@EEND
+@END
 D;JGT
 @LOOOP
 0;JMP
 (END)
 @END
 0;JMP 
+````
+![Pantallazo prueba](<img width="1239" height="935" alt="image" src="https://github.com/user-attachments/assets/9b4c41ec-a570-49d4-9400-65ec6fec70ff" />)
+
