@@ -35,8 +35,12 @@ Almacena también el atributo nombre junto con su encapsulamiento y el método D
 -Observa el bucle foreach. La variable fig es de tipo Figura, pero a veces contiene un Circulo y otras un Rectangulo. Cuando se llama a fig.Dibujar(), el programa ejecuta la versión correcta. En tu opinión, ¿Cómo crees que funciona esto “por debajo”?
 Creo que "por debajo" esta redefiniendo constantemente las propiedades de la función dibujar dependiendo de la clase que lea.
 ### Parte 3
-Memoria y herencia: cuando creas un objeto Rectangulo, este tiene Base, Altura y también Nombre. ¿Cómo te imaginas que se organizan esos tres datos en la memoria del computador para formar un solo objeto?
-Estan en el espacio de 
+- Memoria y herencia: cuando creas un objeto Rectangulo, este tiene Base, Altura y también Nombre. ¿Cómo te imaginas que se organizan esos tres datos en la memoria del computador para formar un solo objeto?
+Al crear un objeto este y sus atributos se almacena de manera diferente dependiendo de como se cree, esto en base a lo que habiamos visto anteriormente, si se crea en el stack como algo temporal dentro de otra función o se guarda con las variables estáticas y globales si se crea asi o en el heap si es creado con un new.
+- Polimorfismo:¿Cómo decide el programa, mientras se está ejecutando, si debe llamar al Dibujar del Circulo o al del Rectangulo?
+Supongo que lo hace a partir del texto que lee en el espacio de la memoria designado a las funciones, identifica que le indica al momento de realizar la función dependiendo del tipo de Figura que tenga.
+-Encapsulamiento: ¿Cómo crees que el compilador logra que no puedas acceder a un miembro private desde fuera de la clase?
+Supongo que lo realiza identificando en las instucciones que variables estan designadas de que manera y al momento de ejecutar comandos verifica que la variable llamada si sea accesible desde el punto donde fue pedida y de su tipo.
 ## 2.  **La pregunta inicial**
 
 ## 3.  **Registro de exploración:** 
