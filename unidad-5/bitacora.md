@@ -84,7 +84,85 @@ Esta es la imagen de la vtable de la ``StarExplosion`` y comparando con la anter
 Dibujo de como funciona en tiempo de ejecución 
 <img width="1280" height="960" alt="image" src="https://github.com/user-attachments/assets/eb8095d5-5b55-4ac8-8968-1e9a06296c5e" />
 
+La relación entre los métodos virtuales y el polimorfismo es estrecha, son estos los que pueden ser modificados por las clases derivadas de una herencia, es esto lo que permite en primer lugar que el polimorfismo exista, además que una clase sea virtual es lo que permite que tenga una virtual table que registre sus metodos asociados y permite al programa saber cual ejecutar.
+
+Ahora en el punto actual en el que voy propongo a mi mismo una nueva pregunta habiendo entendido ya la inicial hasta cierto punto, esta nueva pregunta me permite reponder la segunda mitad de mi pregunta inicial reforzando también la anterior.
+
+### ¿Por qué se implementa el polimorfismo en tiempo de ejecución mediante una tabla de funciones virtuales , y cómo influye este diseño en la herencia y la organización en memoria de los objetos?
+La vtable es utilizada debido a su eficiencia, y a que el hecho de que el programa tenga que hacer una ruta más rápida es muchisimo mejor, el programa lo único que tiene que hacer es identificar según la tabla a que método virtual apuntar y ejecutarlo, ahora, su relación con los demás conceptos es algo que me intriga también, más que nada como este diseño influye en ellos, más exactamente a la herencia.
+
+Para la herencia en específico estuve investigando y encontre que el hecho de como el polimorfismo esta configurado permite que se cumpla un principio importante en POO llamado el Principio de Sustitución de Liskov, este establece que las clases derivadas de una clase base deberían poder sustituir a esta clase base sin que se altere el funcionamiento del programa, en C++ al crear una subclase esta copia la vtable de su clase base solo cambiando los punteros a los métodos sobreescritos, esto ayuda a permitir que este principio se cumpla ya que el objeto derivado puede ser tratado como uno base permitiendo que las jerarquias en la herencia no rompan el comportamiento.
+Por último la organización de memoria, el como esta hecho el polimorfismo con vtables crea una disposición de los atributos que sigue la jerarquia de la herencia: primero los atributos de la base, luego los de la derivada, y el puntero a la vtable.
+
+### Experimento para probar lo investigado en esta bitacora
+Para esto hice otro tipo de explosión, esta siendo una en espiral, para esto necesitaba algunos detalles matemático que no entendia y solo para estos puntos pedí ayuda a IA para entender como hacerlo, después me centré en como aplicar el polimorfismo, no solo cambié su forma sino que cambié su update también para que al explotar actue de manera distinta a su clase base
+```` c++
+class SpiralExplosion : public ExplosionParticle {
+private:
+    float angleIncrement;
+    float currentAngle;
+
+public:
+    SpiralExplosion(const glm::vec2& pos, const ofColor& col)
+        : ExplosionParticle(pos, glm::vec2(0, 0), col, 2.0f, ofRandom(10, 20)),
+        angleIncrement(ofRandom(0.1f, 0.3f)),
+        currentAngle(ofRandom(0, TWO_PI)) {
+        velocity = glm::vec2(100, 0);
+    }
+
+    void update(float dt) override {
+        currentAngle += angleIncrement;
+        velocity = glm::vec2(cos(currentAngle), sin(currentAngle)) * 120.0f;
+        ExplosionParticle::update(dt);
+    }
+
+    void draw() override {
+        ofSetColor(color);
+        ofDrawCircle(position, size * 0.8);
+    }
+};
+````
+resultados de esta explosión:
+<img width="1024" height="768" alt="screenshot_2298" src="https://github.com/user-attachments/assets/551f2b12-8c59-4d5d-ad68-f442c9292d1e" />
+<img width="1024" height="768" alt="screenshot_1708" src="https://github.com/user-attachments/assets/9353f592-2d96-4323-b64b-8e09eaf8f177" />
+
+Son dificiles de notar en pantallazos quietos, pero lo que ocurre es que se crea un remolino de particulas, estas giran al rededor un rato y despues se vuelven a juntar y desaparecen.
+
+Ahora a ver como funciona en la memoria
+<img width="1142" height="230" alt="image" src="https://github.com/user-attachments/assets/cc4d3e40-c7b8-40b3-a965-2f8f5969b6df" />
+
+Podemos ver en su virtual table como apunta a los métodos que sobreescribió y a aquellos que siguen de la misma manera que sus clases padre, es posible ver entonces como se enlazan tanto la herencia y el polimorfismo, este último no existiria sin la primera pero la primera se vería muy restringido sin este, métodos como el vtable permitenq ue se pueda aplicar el polimorfismo de manera adecuada en medio de la ejecución, diferenciando de manera exitosa los métodos virtuales entre clases.
+
 
 ## 4.  **Consolidación, autoevaluación y cierre:**
 > [!CAUTION]
 > Esta sección es OBLIGATORIA y central para tu evaluación
+
+### Mi nota propuesta: ``4,2``
+
+### Justificación general
+Siento que logré en general entender y analizar el concepto de polimorfismo y su intrinseca relación con herencia, el como funciona en medio de la ejecución de un programa era algo que me intrigaba mucho y logre finalmente resolverlo, mi conocimiento fue lo suficientemente profundo y no se quedó en algo dependiente de memorizarlo. Me esforcé bastante para entender como funcionaba el código, lo que me devolvía el depurador y su relación con lo que conocia, sin embargo siento que pude haber experimentado de manera más profunda y además no toqué lo suficiente el tema de encapsulamiento que es también vital.
+
+### Criterio 1: profundidad de la indagación
+
+Mi autoevaluación: me sitúo en el nivel ``Excelente`` porque…
+
+Evidencias: Al inicio mi pregunta inicial era encaminada hacia el qué era lo que pasaba que permitia el polimorfismo y como sucedia, después mi pregunta llegó a "¿Por qué se implementa el polimorfismo en tiempo de ejecución mediante una tabla de funciones virtuales , y cómo influye este diseño en la herencia y la organización en memoria de los objetos?" una pregunta que se enfoca en preguntarse más el porqué se ejecuta esto de esta manera y como se relaciona con otro concepto hablado (la herencia), buscando asi una relación entre estos y una explicación desde el diseño.
+
+### Criterio 2: esfuerzo cognitivo y experimentación
+
+Mi autoevaluación: considero que mi nivel es ``Logrado`` porque…
+
+Evidencias: Al final de mi bitácora hice un experimento que utilizaba el polimorfismo intentado cambiar más cosas y utilicé el depurador para comprobar que detrás de todo esto se llevara de manera correcta y entender su relación con la herencia, sin embargo admito que el experimento no fue muy elaborado y por su naturaleza matemática necesité en cierto punto de la IA para comprender el funcionamiento de la espiral, logré verificar el funcionamiento de los conceptos.
+
+### Criterio 3: calidad del análisis y la reflexión
+
+Mi autoevaluación: mi nivel aquí es ``Excelente`` porque…
+
+Evidencias: Logré analizar en ciertos puntos como la segunda pregunta el porque esto pasaba asi, y a inicios en la actividad 03 y 02 entendí poco a poco como funcionaba el polimorfismo en c++ hasta poder formar un modelo mental que me permite a mi manera entender que esta pasando en el tiempo de ejecución, esto demostrado por el dibujo que aunque un poco simplificado da a entender el flujo general de el proceso de creación de las vtable y como el programa logra discernir entre diferentes métodos virtuales.
+
+### Criterio 4: apropiación y articulación de conceptos
+
+Mi autoevaluación: mi nivel aquí es ``Logrado`` porque…
+
+Evidencias: Para esto me siento en este nivel porque aunque logré conectar polimorfismo y herencia no toqué para nada el encapsulamiento por lo que no generé una interconexción entre los tres temas, sin embargo pude generar un entendimiento del polimorfismo y herencia que no se queda solo en memorizar los conceptos sino entender relamente lo que pasa por debajo, mi evidencia son más que nada la actividad 06 y finales de la 03, pude ir comprendiendo que pasaba en el depurador y que era una vtable, su relación con los métodos virtuales y como todo esto empezaba desde la herencia y se relacionaba con esta.
