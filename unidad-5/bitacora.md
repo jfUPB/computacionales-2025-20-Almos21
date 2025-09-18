@@ -42,10 +42,22 @@ Supongo que lo hace a partir del texto que lee en el espacio de la memoria desig
 -Encapsulamiento: ¿Cómo crees que el compilador logra que no puedas acceder a un miembro private desde fuera de la clase?
 Supongo que lo realiza identificando en las instucciones que variables estan designadas de que manera y al momento de ejecutar comandos verifica que la variable llamada si sea accesible desde el punto donde fue pedida y de su tipo.
 ## 2.  **La pregunta inicial**
-
+Revisando mi diagnosticó puedo encontrar como el concepto en el que más flaqueo es el polimorfismo, ví como más adelante en la bitácora se habla del vtable y que esta relacionado de alguna manera con el polimorfismo así que he decidido que mi pregunta va a ir encaminada a preguntarme como es que se interpreta el polimorfismo al interior del programa en su momento de ejecución y que es lo que tiene que ver este "vtable"
+### ¿Cómo implementa C++ el polimorfismo en tiempo de ejecución y qué papel juega la vtable en esto?
 ## 3.  **Registro de exploración:** 
 > Aquí documentas cada ciclo de pregunta -> hipótesis -> experimento -> hallazgo -> reflexión.
 > Debe ser rico en evidencia visual (código, capturas del depurador con anotaciones, diagramas).
+### Actividad 02
+Primero que nada en ofApp.h se establecen las bases de las partículas que aparecen en el programa y como actuan de diferente dependiendo de que tipo de partícula sean, aqui se evidencia el primer uso de herencia, encontrado en la clase ``Particula`` que será la más importante, esta establece sus atributos, después se establece la clase ``RisingParticle`` esta tiene otros atributos extra pero hereda su mayoría de Partícula, pero aqui es donde pasa algo que me interesa debido a que decidí enfocarme en polimorfísmo, esto es el update que utiliza el override para establecer su propia versión de este, lo mismo pasa con el draw, aunque aún no se como lo hace por debajo entiendo que es lo que hace que puedo esperar que las demás clases utilicen esto para poder definir sus capacidades, también cambia los estados de algunos métodos.
+
+Ahora se crea otra clase base que hereda de particle y que heredará a las diferentes clases de explosiones, esta es llamada ``ExplosionParticle`` de esta surgen las diferentes formas de explosión, todas definen su propias maneras de funcionar en el update y draw usando polimorfísmo y dibujando sus formas con conceptos matemáticos que permitan crearlas. El ofApp.cpp se encarga de manejar todo esto creando partículas entre los tres tipos de manera random, asignando hacia donde van, su tamaño, su velocidad, etc. permitiendo que se destruyan y establece que para crearlas se puede usar clic para crear de manera individual o la barra espaciadora para crear muchas a la vez, y la s para el screenshoot.
+
+<img width="1920" height="1051" alt="screenshot_1224" src="https://github.com/user-attachments/assets/8a2068b8-2f89-4447-8d05-0663c6af7009" />
+<img width="1920" height="1051" alt="screenshot_1534" src="https://github.com/user-attachments/assets/52791962-4130-4bc3-81b7-bcb3a2c614f2" />
+<img width="1920" height="1051" alt="screenshot_1638" src="https://github.com/user-attachments/assets/7044d6d4-9047-4121-91dc-52f5a7f1ebb9" />
+### Actividad 03
+En memoria espero encontrar los espacios designados de las funciones y vectores, solo que no tengo muy bien entendido como se ve esto realmente, espero encontrar una especie de lista de funciones que den instrucciones para el programa saber que hacer y como interpretarlo.
+
 
 ## 4.  **Consolidación, autoevaluación y cierre:**
 > [!CAUTION]
