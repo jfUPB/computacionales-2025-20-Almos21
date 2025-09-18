@@ -41,9 +41,11 @@ Al crear un objeto este y sus atributos se almacena de manera diferente dependie
 Supongo que lo hace a partir del texto que lee en el espacio de la memoria designado a las funciones, identifica que le indica al momento de realizar la función dependiendo del tipo de Figura que tenga.
 -Encapsulamiento: ¿Cómo crees que el compilador logra que no puedas acceder a un miembro private desde fuera de la clase?
 Supongo que lo realiza identificando en las instucciones que variables estan designadas de que manera y al momento de ejecutar comandos verifica que la variable llamada si sea accesible desde el punto donde fue pedida y de su tipo.
+
 ## 2.  **La pregunta inicial**
-Revisando mi diagnosticó puedo encontrar como el concepto en el que más flaqueo es el polimorfismo, ví como más adelante en la bitácora se habla del vtable y que esta relacionado de alguna manera con el polimorfismo así que he decidido que mi pregunta va a ir encaminada a preguntarme como es que se interpreta el polimorfismo al interior del programa en su momento de ejecución y que es lo que tiene que ver este "vtable"
-### ¿Cómo implementa C++ el polimorfismo en tiempo de ejecución y qué papel juega la vtable en esto?
+Revisando mi diagnosticó puedo encontrar como el concepto en el que más flaqueo es el polimorfismo, no comprendo aún como es que este funciona realmente por debajo mientras se ejecuta, por esto surge mi pregunta:
+### ¿Cómo implementa C++ el polimorfismo en tiempo de ejecución? ¿Esto como se ve unido de alguna manera a los otros dos conceptos?
+
 ## 3.  **Registro de exploración:** 
 > Aquí documentas cada ciclo de pregunta -> hipótesis -> experimento -> hallazgo -> reflexión.
 > Debe ser rico en evidencia visual (código, capturas del depurador con anotaciones, diagramas).
@@ -55,8 +57,32 @@ Ahora se crea otra clase base que hereda de particle y que heredará a las difer
 <img width="1920" height="1051" alt="screenshot_1224" src="https://github.com/user-attachments/assets/8a2068b8-2f89-4447-8d05-0663c6af7009" />
 <img width="1920" height="1051" alt="screenshot_1534" src="https://github.com/user-attachments/assets/52791962-4130-4bc3-81b7-bcb3a2c614f2" />
 <img width="1920" height="1051" alt="screenshot_1638" src="https://github.com/user-attachments/assets/7044d6d4-9047-4121-91dc-52f5a7f1ebb9" />
+
 ### Actividad 03
-En memoria espero encontrar los espacios designados de las funciones y vectores, solo que no tengo muy bien entendido como se ve esto realmente, espero encontrar una especie de lista de funciones que den instrucciones para el programa saber que hacer y como interpretarlo.
+En memoria espero encontrar los espacios designados de las funciones y vectores, solo que no tengo muy bien entendido como se ve esto realmente, espero encontrar una especie de lista de sus atributos y valores.
+<img width="935" height="229" alt="image" src="https://github.com/user-attachments/assets/c5876736-cf03-45c3-bb4f-5870d49e3830" />
+
+Esto es lo que el programa me ha mostrado, esto me muestra como la clase dentro de la memoria es un espacio donde se organizan sus atributos, puedo ver sus vectores, atributos, etc. y estan organizados de la forma como son puestos en la clase.
+
+Después de cambiar unas cosas en el codigo para poder ver en memoria la clase ``CircularExplosion`` obtuve esto 
+<img width="907" height="43" alt="image" src="https://github.com/user-attachments/assets/913fb463-b27e-48c1-903b-2daabdb3ce72" />
+
+Esta imagen me muestra adentro un espacio de memoria con el nombre de la clase padre ``ExplosionParticle`` al abrirla obtengo lo siguiente
+<img width="908" height="185" alt="image" src="https://github.com/user-attachments/assets/1a916847-44d6-4748-8332-bd7f6d1b43bf" />
+
+Esto me ayuda a entender mejor la naturaleza de los objetos, aquí puedo ver como tiene su espacio en memoria con sus atributos y sus propios valores, pero además de esto encuentro algo muy interesante y es como aparece la clase partícula entre esta lista, mi hipótesis es que esta trae los atributos heredados de esta clase que son almacenados asi dentro de la clase hija, solo que estos son redefinidos dentro del espacio propio de la clase, voy a seguir avanzando para comprender esto.
+
+Ahora, la _vtable
+<img width="904" height="232" alt="image" src="https://github.com/user-attachments/assets/aa671dd3-507d-4643-bb98-e46660874969" />
+
+Según lo que veo por ahora me parece que la tabla genera una especie de lista de las funciones que se ejecutan y a que clase pertenecen cada una de estas, quizas esto me puede llevar de alguna manera por el concepto de polimorfismo, ya que a pesar de que estas funciones sean ejecutadas desde la clase actual estan guardadas en un espacio llamado como su clase padre y adentro de este puntero de funciones se logra identificar cual clase es la que ejecuta la función, esto puede afectar de alguna manera el como se interpreta esta función, pero aun no puedo saber lo suficiente.
+<img width="1149" height="237" alt="image" src="https://github.com/user-attachments/assets/441b9252-d74e-4cc3-ae1f-849d0e9b4125" />
+
+Esta es la imagen de la vtable de la ``StarExplosion`` y comparando con la anterior puedo observar que efectivamente cambia el nombre de cual es la clase que ejecuta ciertas funciones, y son estas funciones las que estas clases sobreescriben con override, esto me genera la hipotesis de que esto es lo que permite que el programa diferencie entre como ejecutar las funciones, ya que en estas tablas que estan dentro de las clases servirían como una especie de guia para que le programa sepa que versión seguir, de hecho buscando la respuesta a la pregunta de la relación entre estas tablas y los métodos virtuales yo siento que esta es la respuesta, estas tablas dentro de las clases deben ser lo que indica cual versión de una misma función ejecutar, esta es su manera de diferenciar y apuntar a estas diferentes versiones dentro del programa, que un método sea virtual es lo que le permite ser subreescrito con override y apuntado con una tabla virtual pero esto lo invertigaré y profundizaré más adelante.
+
+### Actividad 06
+Dibujo de como funciona en tiempo de ejecución 
+<img width="1280" height="960" alt="image" src="https://github.com/user-attachments/assets/eb8095d5-5b55-4ac8-8968-1e9a06296c5e" />
 
 
 ## 4.  **Consolidación, autoevaluación y cierre:**
