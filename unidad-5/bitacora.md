@@ -54,7 +54,11 @@ Primero que nada en ofApp.h se establecen las bases de las partículas que apare
 
 Ahora se crea otra clase base que hereda de particle y que heredará a las diferentes clases de explosiones, esta es llamada ``ExplosionParticle`` de esta surgen las diferentes formas de explosión, todas definen su propias maneras de funcionar en el update y draw usando polimorfísmo y dibujando sus formas con conceptos matemáticos que permitan crearlas. El ofApp.cpp se encarga de manejar todo esto creando partículas entre los tres tipos de manera random, asignando hacia donde van, su tamaño, su velocidad, etc. permitiendo que se destruyan y establece que para crearlas se puede usar clic para crear de manera individual o la barra espaciadora para crear muchas a la vez, y la s para el screenshoot.
 
+Experimento 1:
+<a name="exp1"></a>
+
 <img width="1920" height="1051" alt="screenshot_1224" src="https://github.com/user-attachments/assets/8a2068b8-2f89-4447-8d05-0663c6af7009" />
+
 <img width="1920" height="1051" alt="screenshot_1534" src="https://github.com/user-attachments/assets/52791962-4130-4bc3-81b7-bcb3a2c614f2" />
 <img width="1920" height="1051" alt="screenshot_1638" src="https://github.com/user-attachments/assets/7044d6d4-9047-4121-91dc-52f5a7f1ebb9" />
 
@@ -153,7 +157,7 @@ Evidencias: Al inicio mi pregunta inicial era encaminada hacia el qué era lo qu
 
 Mi autoevaluación: considero que mi nivel es ``Logrado`` porque…
 
-Evidencias: Al final de mi bitácora hice un experimento que utilizaba el polimorfismo intentado cambiar más cosas y utilicé el depurador para comprobar que detrás de todo esto se llevara de manera correcta y entender su relación con la herencia, sin embargo admito que el experimento no fue muy elaborado y por su naturaleza matemática necesité en cierto punto de la IA para comprender el funcionamiento de la espiral, logré verificar el funcionamiento de los conceptos.
+Evidencias: Al final de mi bitácora hice un experimento que utilizaba el polimorfismo intentado cambiar más cosas y utilicé el depurador para comprobar que detrás de todo esto se llevara de manera correcta y entender su relación con la herencia, sin embargo admito que el experimento no fue muy elaborado y por su naturaleza matemática necesité en cierto punto de la IA para comprender el funcionamiento de la espiral, logré verificar el funcionamiento de los conceptos. Por ejemplo en el [experimento 1](#exp1) demuestro lo anterior porque ...
 
 ### Criterio 3: calidad del análisis y la reflexión
 
