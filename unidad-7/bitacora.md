@@ -9,5 +9,11 @@ Esto es lo que sale al momento de ejecutar el programa, un tirangulo naranja, no
 <img width="872" height="964" alt="image" src="https://github.com/user-attachments/assets/abab76d8-6c38-490e-ab7f-0f36862b97f5" />
 
 ### 3.
+-¿Porqué se utiliza repetidamente el "gl"?
+-¿De donde saca los compíladores de shaders y en general todas estas referencias a objetos relacionados con renders?
+-¿Que es VAO/VBO?
+
+## Actividad 02
+
 
 
