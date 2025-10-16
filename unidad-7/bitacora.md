@@ -2,6 +2,7 @@
 
 ## Actividad 01
 ### 1.
+<a name="1"></a>
 Esto es lo que sale al momento de ejecutar el programa, un tirangulo naranja, no se si tendrá algo relacionado con el programa o algo que se vaya a explicar pero me percaté de que el tamaño del triángulo depende de el tamaño de la ventana, si esta se acorta este también, y no recuerdo si en programas pasados pasaba lo mismo o solo se reducia el rango de visión del programa sin afectar su tamaño.
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/5019023a-b0b9-4c54-87fb-72aa1c81908a" />
@@ -14,6 +15,7 @@ Esto es lo que sale al momento de ejecutar el programa, un tirangulo naranja, no
 -¿Que es VAO/VBO?
 
 ## Actividad 02
+<a name="2"></a>
 Para poder crear un proyecto de OpenGL se necesitan varias bibliotecas que entre sí permiten que un proyecto de estos pueda funcionar adecuadamente, la primera es ``opengl32.lib`` esta se encarga de crear el contexto inicial de OpenGL y tiene funciones muy básicas, de no ser por esta el proyecto no podría ser iniciado en absoluto, es como si creara el "terreno" base, se ejecuta en tiempo de compilación y enlace. La siguiente es ``GLFW`` esta se encarga de crear una ventana, manejar el teclado y en general configurar el contexto de OpenGl, esta tiene dos funciones muy importantes: ``glfw3.lib`` es aquella que le indica al compilador donde estan las funciones, mientras que ``glfw3.dll`` tiene el código real que se ejecuta, este es muy importante ya que para que el programa corra esta función debe estar junto al ejecutable. 
 ``GLAD`` viene de un OpenGL moderno, y no viene de ``opengl32.lib`` las funciones modernas se encuentran almacenadas en la GPU, es ``GLAD`` quien se encarga de preguntarle al sistema donde se encuentran estas funciones para cargarlas rápidamente, Para eso usas el archivo ``glad.c`` y sus encabezados (``glad.h``). Se usa en tiempo de ejecución, cuando se llama a ``gladLoadGL()`` todo esto permite el poder utilizar funciones modernas, de lo contrario solo se usarían funciones viejas. ``GLM`` es algo opcional que ayuda demasiado al momento de trabajar con vectores y matrices, solo es código fuente y es muy útil para las animaciones o transformaciones.
 Por último pero no menos importante estan los drivers de la GPU que son los que realmente ejecutan todas las funciones modernas que ``GLAD`` encuentra, son estos los que hacen el trabajo real. Es así como todo se conecta para permitir dibujar en 3D, con ``GLFW`` y ``opengl32.lib`` permitan el acceso a ``OpenGL``, ``GLAD`` acceda a las funciones modernas, los drivers ejecuten y ``GLM`` permita facilitar el trabajo.
@@ -28,6 +30,7 @@ Al dividir por 2 y por 4 el triángulo que resulta es este respectivamente:
 
 resulta más pequeño, esto seguramente es debido a que ocurre lo explicado de que el viewport no se ajusta al tamaño del framebuffer, causando que el triángulo se posicione y escale mal. Algo interesante es que al jugar con el tamaño de la ventana se restablece el triángulo a estar bien ubicado en el centro
 ### Resumen
+<a name="3"></a>
 Hasta ahora hemos aprendido como se establece el contexto inicial de OpenGL y que necesita para funcionar correctamente, ahora empezamos a entender como es que define un contexto en el cual "dibujar" para esto se ayuda de ``GLFW`` que fue algo definido anteriormente, esta le permite poder generar un contexto en el cual "dibujar" y es multiplataforma lo que evita tener que cuadrarlo para la plataforma específica donde se hace. OpenGL no es quien dibuja realente sino que lo hace la GPU pero es OpenGL quien le brinda el contexto y le "explica" como utilizarlo y como dibujar lo que le pedimos. El espacio donde dibuja esto es el framebuffer que es un espacio en la memoria designado para dibujar inicialmente lo que se desea hacer, esto se muestra finalmente en la pantalla, el viewport define que espacio del buffer es visible, debe de ajustarse correctamente con este último de lo contrario se alterará la imagen, ahora las preguntas que me surgen es ¿como es que al cuadrar la ventana se ajusta correctamente el triángulo?, el que pasaría si no se tuviera un espacio así sino que se mostrara directamente en pantalla, o es indispensable este espacio aparte donde se dibuja inicialmente? ¿Que pasa si el tamaño del viewport es mayor al del buffer, que es entonces lo que se observa? Esto útlimo lo intenté hacer más arriba (si es que entendí bien como funcionaba la línea de código) pero solo no aparecia nada, ¿es esto porque al ser más grande que el buffer no aparece nada?
 ### Segundo experimento
 Al jugar cambiando parámetros en ``glDrawArrays`` sale algo como esto al cambiar por lines y 4 al final
@@ -36,6 +39,7 @@ Al jugar cambiando parámetros en ``glDrawArrays`` sale algo como esto al cambia
 
 si se cambia a Points no se ve nada, quizas se esten dibujando los puntos pero son casi invisibles para mi, si se cambia a 2 al final pero teniendo triangles desaparece el triángulo y si lo cambio a 4 sigue apareciendo sin ningún cambio lo cual me parece raro.
 ### Preguntas
+<a name="4"></a>
 #### ¿Qué es el contexto OpenGL?
 Es el contexto que crea OpenGL donde almacena cual es el estado gráfico que tiene, es muy necesario ya que sin él practicamente no se podría hacer nada.
 #### ¿Cuál es el rol de la biblioteca GLFW y qué ventaja tiene usarla?
@@ -65,6 +69,7 @@ Esto hace que el buffer donde se estaba dibujando todo sea el que se muestre en 
 ### Diferencia CPU y GPU
 La CPU hace pocas cosas a la vez es más de hacerlo uno a uno pero más complejas, mientras que la GPU hace muchas cosas simples a la vez, esto le permite hacer cosas como la del video donde pintaba inmediatamente a la monalisa, por eso es mejor usar la GPU para cosas gráficas, porque de lo contrario seria como en la unidad 1 y 2 donde para dibujar habia que ir frame por frame activando cada pixel de una manera individual y lenta.
 ### Preguntas Video
+<a name="5"></a>
 #### 1
 - Vertex Shading: En esta se toman los vertices de la figura formada y se pasan de un espacio 3D a el 2D de la pantalla, esto a atraves de calcular los espacios de estos vertices y realizar complejas y numerosas operaciones matriciales, esto ocurre poco a poco con cada triangulo de el objeto.
 - Rasterization: En este proceso se toman los triangulos calculados anteriormente y se calcula cuantos pixeles y en que posición son necesarios para dibujar esta imagen, son texturizados y divididos en fragmentos
@@ -89,6 +94,7 @@ Para poder dibujar un triángulo en OpenGL, lo primero es decirle a la GPU cuál
 
 Por otro lado, para usar un shader necesitamos escribir un pequeño programa que se ejecuta directamente en la GPU. Este programa tiene dos partes básicas: el vertex shader, que transforma las posiciones de los vértices, y el fragment shader, que decide de qué color será cada fragmento del triángulo. Después de escribirlos, hay que compilarlos, enlazarlos en un shader program y activarlo. A partir de ese momento, cada vez que OpenGL dibuja algo, usa nuestro código para procesar los vértices y colores. Esto es lo que nos da el control creativo y técnico sobre cómo se ve y se comporta todo lo que aparece en pantalla.
 
+<a name="6"></a>
 ### Implementación:
 Este es el resultado al implementar las partes nuevas del código: 
 
@@ -110,7 +116,21 @@ Primero se dividen las coordenadas del mouse entre el tamaño de la ventana, est
 La posición del mouse la normalizamos debido a que es necesario hacer esto para poder usarlo como offset directamente, moviendo el triángulo en el mismo sistema de coordenadas que la ventana, esto es muy útil y necesario ya que de lo contrario sería como mínimo muy engorroso cambiar de sistemas de coordenadas constantemente.
 
 # Autoevaluación
+## Nota Propuesta: ``3.8/5``
 
+### Nota Actividad 01: ``1/1``
+Logré tener el primer [acercamiento](#1) al programa ejemplo y realizar preguntas importantes que serían respondidas eventualmente a lo largo de la bitácora.
 
+### Nota Actividad 02: ``1/1``
+Siento que el [resumen](#2) que realicé de lo explicado en la actividad fue adecuado, además que mientras lo realizaba logré conectar mejor los conceptos leidos y entenderlos más que solo de memoria como recitados, sino generando una conexión genuina con ellos.
+
+### Nota Actividad 03: ``1/1``
+Me siento contento y suficiente con el resultado de esta actividad ya que fui capáz de realizar un [resumen](#3) en el cual comprendia y volvia a traer a mi lo descríto anteriormente a este, y al final pude condensar todo lo aprendido en las [preguntas](#4).
+
+### Nota Actividad 04: ``0.8/1``
+Me siento bien con las respuestas a las [preguntas](#5) del video ya que siento que lo comprendí y al resumen también, pero no estoy seguro de si la [implementación](#6) fue correcta, teno haber malentendido donde poner las partes del código y que este no fuera realmente el resultado esperado, estas dudas pueden llegar de por si a representar que hay algo que no me quedó claro.
+
+### ### Nota Actividad 05: ``1/1``
+Siento que esta vez si implementé bien y logré entender el roceso de normalización.
 
 
