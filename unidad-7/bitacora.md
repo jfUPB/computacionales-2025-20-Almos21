@@ -51,10 +51,23 @@ Es esta quien realmente dibuja todo, es OpenGL quien le indica como hacerlo y co
 #### ¿Por qué crees que sea necesario activar el VSync? ¿Si no lo activas y la imagen es estática qué crees que pase, y si es dinámica?
 Es necesario porque si la taza de refresco no es igual entre la ventana y el monitor pueden haber momentos donde se vean las cosas mal o no sincronizadas, esto no afectaría tanto algo estático pero si algo dinámico, causando que quizas algunos momentos no se puedan ver.
 #### En esta unidad estamos usando OpenGL moderno, pero ¿Qué es OpenGL Legacy? ¿Qué diferencias hay entre ambos?
-Este era el OpenGL "viejo" no usaba shaders, era más lento, menos eficiente y no utilizaba el VAO y VBO para dibujar como si lo hace el moderno, en general en este OpneGL decidía como renderizar y dibujar lo establecido.
+Este era el OpenGL "viejo" no usaba shaders, era más lento, menos eficiente y no utilizaba el VAO y VBO para dibujar como si lo hace el moderno, en general en este OpenGL decidía como renderizar y dibujar lo establecido.
 #### ¿Qué es el shader program? ¿Por qué es importante en OpenGL moderno?
-Los shader son los que permiten a OpenGL y a la GPU procesar una escena, son muy necesarios 
-Trata de revisar el código setupTriangle(), intuitivamente ¿Qué crees que hace? ¿Qué crees que es el VAO y el VBO?
-En el ciclo principal (game loop) de OpenGL, notaste que en cada frame (cuadro) le decimos a openGL que use el shader program y el VAO. Si le indicas esto antes del game loop ¿Será necesario seguirlo haciendo en cada loop? Si no es necesario ¿En qué casos crees que esto puede ser útil?
-Finalmente, recuerda lo que hace glfwSwapBuffers(mainWindow); ¿Por qué crees que es importante? ¿Qué pasaría si no lo llamas? ¿Cómo explicas lo que pasa si no lo llamas? (experimenta)
+Los shader son los que permiten a OpenGL y a la GPU procesar una escena, si ellos no se vería nada, el shader program combian varios y los junta para poder utilizarlor con OpenGl
+#### Trata de revisar el código setupTriangle(), intuitivamente ¿Qué crees que hace? ¿Qué crees que es el VAO y el VBO?
+Segun veo hace una matriz con la ubicación de los vertices, creo que el VAO hace un array con estos valores para definir el objeto y el VBO debe ser algun buffer que lo dibuje, pero no estoy seguro aún.
+#### En el ciclo principal (game loop) de OpenGL, notaste que en cada frame (cuadro) le decimos a openGL que use el shader program y el VAO. Si le indicas esto antes del game loop ¿Será necesario seguirlo haciendo en cada loop? Si no es necesario ¿En qué casos crees que esto puede ser útil?
+Yo creo que no es necesaio pero puede ser necesario en proyectos que sean muy grandes o donde puedan haber errores al no asignar esto constantemente.
+#### Finalmente, recuerda lo que hace glfwSwapBuffers(mainWindow); ¿Por qué crees que es importante? ¿Qué pasaría si no lo llamas? ¿Cómo explicas lo que pasa si no lo llamas? (experimenta)
+Esto hace que el buffer donde se estaba dibujando todo sea el que se muestre en pantalla, de no ser asi pues no se mostraría lo dibujado sino que se queda quieto dibujando sin ser visto, es importante que sea asi para que se vea bien la pantalla y como se dibuja.
+
+## Actividad 04
+### Diferencia CPU y GPU
+La CPU hace pocas cosas a la vez es más de hacerlo uno a uno pero más complejas, mientras que la GPU hace muchas cosas simples a la vez, esto le permite hacer cosas como la del video donde pintaba inmediatamente a la monalisa, por eso es mejor usar la GPU para cosas gráficas, porque de lo contrario seria como en la unidad 1 y 2 donde para dibujar habia que ir frame por frame activando cada pixel de una manera individual y lenta.
+### Preguntas Video
+#### 1
+Vertex Shading: 
+Rasterization:
+Fragment Shading: En esta se toman los vertices de la figura formada
+
 
