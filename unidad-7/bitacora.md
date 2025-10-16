@@ -66,8 +66,51 @@ Esto hace que el buffer donde se estaba dibujando todo sea el que se muestre en 
 La CPU hace pocas cosas a la vez es más de hacerlo uno a uno pero más complejas, mientras que la GPU hace muchas cosas simples a la vez, esto le permite hacer cosas como la del video donde pintaba inmediatamente a la monalisa, por eso es mejor usar la GPU para cosas gráficas, porque de lo contrario seria como en la unidad 1 y 2 donde para dibujar habia que ir frame por frame activando cada pixel de una manera individual y lenta.
 ### Preguntas Video
 #### 1
-Vertex Shading: 
-Rasterization:
-Fragment Shading: En esta se toman los vertices de la figura formada
+- Vertex Shading: En esta se toman los vertices de la figura formada y se pasan de un espacio 3D a el 2D de la pantalla, esto a atraves de calcular los espacios de estos vertices y realizar complejas y numerosas operaciones matriciales, esto ocurre poco a poco con cada triangulo de el objeto.
+- Rasterization: En este proceso se toman los triangulos calculados anteriormente y se calcula cuantos pixeles y en que posición son necesarios para dibujar esta imagen, son texturizados y divididos en fragmentos
+- Fragment Shading: En esta el objetivo es permitir diferenciar las superficies a partir de calcular diferentes iluminaciones para los fragmentos.
+#### 2
+En el pipeline fijo todos los pasos estaban predefinidos por la API y nosotros solo cambiabamos los estados sin cuadrar la lógica interna, mientras que en el moderno estos pasos pueden ser programados con los shaders, principalmente podemos programar el vertex shader y el fragment shader. Las ventajas de esto son que nos da mejor flexibilidad y control sobre la apariencia, además que nos permite usar métodos y efectos más modernos aprovechando mejor la GPU al nosotros saber que queremos usar, calcular y como.
+#### 3
+En este proceso se toman los triangulos calculados anteriormente y se calcula cuantos pixeles y en que posición son necesarios para dibujar esta imagen, son texturizados y divididos en fragmentos
+#### 4
+Los fragmentos son grupos de pixeles que comparten la misma textura o color, no es lo mismo que un pixel porque de hecho los fragmentos estan consolidados por varios pixeles, son grupos de estos que poseen las mismas carácteristicas y que estan dentro de un mismo triángulo.
+#### 5
+El Z-Buffer es un espacio donde se guardan los valores en z de los objetos, esto se utiliza para evitar el problema causado al momento de querer mostrar vario objetos que estan en un mismo espacio en valores de X y Y pero no en Z, o sea uno atrás del otro, el programa solo representa aquellos que esten más cerca a la cámara al encontrarse con estos casos, para saber cuales cumplen con esto y poder compararlos se utilizan los valores guardados en el Z-Buffer
+#### 6
+Este problema surge porque si se hace la resterization de manera simple se generan bordes pixelados, el anti-aliasing permite vbariar la opacidad de los pixeles en los bordes para generar el efecto de bordes suaves y disminuir la percepción de que estan pixelados.
+#### 7
+El fragment shader esta relacionado con la iluminación debido a que utiliza esta para calcular, junto con la posición de el fragmento, su color, esto tomando en cuenta tambien cosas como la textura, etc. y depende de la iluminación ya que este es el punto de esta técnica, no dejar un objeto con un color plano sino variarlo dependiendo de lo anterior, esto permite que haya realismo y sentido en un objeto y pueda adaptarse y simularse en diferentes ambientes de manera coherente. 
+#### 8
+Implica mucho más trabajo y puede ser muy pesado, un juego que utilice de manera desproporcionada muchas fuentes lumínicas se condena a ser más pesado y dificil de correr, ya que suma a la GPU más cálculos que debe hacer por superficie al querer hacer el fragment shading.
+
+### Segundo Resumen
+Para poder dibujar un triángulo en OpenGL, lo primero es decirle a la GPU cuáles son los vertices que lo forman, se definen en coordenadas normalizadas que van de -1 a 1. Luego, necesitamos guardar esa información de forma eficiente, y para eso se crean dos objetos importantes: el VBO, que almacena directamente los datos de los vértices, y el VAO, que guarda la configuración sobre cómo se deben interpretar esos datos, sus atributos, etc. Una vez creados, enviamos la información a la GPU, le decimos cómo leerla (por ejemplo, cada vértice tiene 3 coordenadas) y activamos estos objetos. Con todo listo, solo se necesita llamar a la función que dibuja (glDrawArrays) para que el triángulo aparezca en pantalla.
+
+Por otro lado, para usar un shader necesitamos escribir un pequeño programa que se ejecuta directamente en la GPU. Este programa tiene dos partes básicas: el vertex shader, que transforma las posiciones de los vértices, y el fragment shader, que decide de qué color será cada fragmento del triángulo. Después de escribirlos, hay que compilarlos, enlazarlos en un shader program y activarlo. A partir de ese momento, cada vez que OpenGL dibuja algo, usa nuestro código para procesar los vértices y colores. Esto es lo que nos da el control creativo y técnico sobre cómo se ve y se comporta todo lo que aparece en pantalla.
+
+### Implementación:
+Este es el resultado al implementar las partes nuevas del código: 
+
+<img width="411" height="449" alt="image" src="https://github.com/user-attachments/assets/460d929b-0b09-4a35-ba22-aa349aac5c6f" />
+
+## Actividad 05
+Capturas del código funcionando en la máquina
+
+<img width="403" height="448" alt="image" src="https://github.com/user-attachments/assets/b92660d8-248b-4e0b-91f1-c2bee712ca83" />
+
+<img width="413" height="460" alt="image" src="https://github.com/user-attachments/assets/3adfdfd6-411d-41b2-a912-ffe6637922f0" />
+
+<img width="405" height="435" alt="image" src="https://github.com/user-attachments/assets/e7986bd9-b0fb-4297-acfe-299cc495870e" />
+
+Normalmente las coordenadas del mouse se calculan tomando como origen la esquina superior izquierda y tomando el ancho y alto de la ventana, pero en OpenGL no se trabajan con estas sino con Coordenadas de Dispositivo (NDC).
+El proceso realizado para poder normalizarlo  a NDC es el siguiente:
+Primero se dividen las coordenadas del mouse entre el tamaño de la ventana, esto convierte el rango de ``[0, ancho]`` → ``[0, 1]`` en X y ``[0, alto]`` → ``[0, 1]`` en Y. Despues es necesario convertir de ``[0,1]`` a ``[-1,1]`` esto se hace multiplicando por 2 y luego restando por 1, tambien invirtiendo el eje en y ya que en las coordenadas del mouse el negativo esta arriba debido a como ubica el origen, pero para OpenGL esta abajo.
+
+La posición del mouse la normalizamos debido a que es necesario hacer esto para poder usarlo como offset directamente, moviendo el triángulo en el mismo sistema de coordenadas que la ventana, esto es muy útil y necesario ya que de lo contrario sería como mínimo muy engorroso cambiar de sistemas de coordenadas constantemente.
+
+# Autoevaluación
+
+
 
 
