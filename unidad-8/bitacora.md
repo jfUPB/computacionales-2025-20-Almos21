@@ -3,7 +3,7 @@
 Al ejecutar el programa veo este circulo moviendose a lo largo del espacio, esto es parecido a lo que esperaba ver ya que mirando por muy encima el código vi como creaba un círculo y en la función Draw() se iba dibujando en diferente posición.
 
 <img width="401" height="424" alt="image" src="https://github.com/user-attachments/assets/6dce72b3-7991-45ac-b3e4-88375fcbb8d1" />
-
+<a name="1"></a>
 Después pasó algo interesante y es que al apretar con click se congelaba todo y disminuía de tamaño la esfera, creo que ocurre porque alguna parte del código bloquea el programa, no permitiendo que se actualice correctamente.
 
 <img width="394" height="427" alt="image" src="https://github.com/user-attachments/assets/2b97b545-f942-4668-ac7c-91360118cb36" />
@@ -17,6 +17,7 @@ Esto me hace pensar que lo que ocurre es que el hilo se ejecuta al mismo tiempo 
 La diferencia entre la concurrencia y un paralelismo se encuentra en que la concurrencia realmente no ejecuta dos procesos al mismo tiempo, sino que intercala entre ellos para dar una idea de simultaneidad. El paralelísmo por otro lado si ejecuta ambos procesos al mismo tiempo, esta diferencia es vital al momento de ejecutar un programa ya que una concurrencia puede ser menos eficiente y relentizar el funcionamiento del programa, al no estarse ejecutando al mismo tiempo con diferentes o múltiples núcleos lo que ocurre es que el rendimiento es menor.
 
 ## Actividad 02
+<a name="2"></a>
 - La variable esta siendo protegida en esta parte del código
 ```` c++
   lock();
@@ -38,7 +39,7 @@ Este es el resultado que se obtiene al realizar ambos códigos, cambiando los va
 <img width="1020" height="761" alt="image" src="https://github.com/user-attachments/assets/0d5b95c9-f5e0-4813-beaa-5b11b5ecb42b" />
 
 Para experimentar decidí intentar cambiar el número de hilos como se proponía en el texto, primero que nada los bajé a 6, para tener una primera idea este era el tiempo que aparecía anteriormente al usar la cantidad normal (12)
-
+<a name="3"></a>
 <img width="350" height="133" alt="image" src="https://github.com/user-attachments/assets/b1317f8d-7d49-49f7-a3df-fd5d9ac776ae" />
 
 Lo primero que podía esperar era pensar que el tiempo usado aumentaría, ya que de manera secuencial este era 0.1 seg, al ejecutar pero ahora con 6 hilos me encontre con que paso del tiempo anterior a estos 0.66 seg, esto debe ser debido a que al usar menor cantidad de hilos el programa se demora más haciendo los procesos ya que lo divide entre menor cantidad de hilos.
@@ -52,6 +53,7 @@ Lo bajé después a 2 hilos únicamente y obtuve este tiempo
 Este experimento me sirvió para entender como afecta el uso de diferentes cantidades de hilos en el programa y que tanto impactan a el programa final, esto es algo que a esta escala puede parecer muy poco pero estoy seguro que el uso de esto para procesos mucho más grandes puede ser mucha más que unicamente 0.04 segs de diferencia.
 
 ## Actividad 04
+<a name="4"></a>
 Estos son los datos del programa con un solo hilo al inicio y al aumentar hasta cierto punto
 <img width="132" height="57" alt="image" src="https://github.com/user-attachments/assets/dcbdd1f7-a415-49eb-ab8a-9561f35f94c4" />
 <img width="133" height="82" alt="image" src="https://github.com/user-attachments/assets/29e28eca-3c69-405c-b9ba-703d4498e6ed" />
@@ -83,4 +85,20 @@ Lo que pasa es que si muchos hilos compiten por el mismo lock, solo uno puede ac
 - Las diferencias entre el flocking con y sin hilos son que en el flocking sin hilos todo se ejecuta de manera secuencial, esto lo vuelve algo más lento pero a la vez seguro, no hay posibilidad de que ocurra una condición de carrera o algo por el estilo, mientras que al utilizar el flocking con hilos el trabajo de divide en dos hilos cada uno encargado de una cosa, pero brindandoles a ambos el acceso a un mismo recurso, esto vuelve necesario el uso de un mutex o de lo contrario el código se vuelve fuertemente inseguro y pueden ocurrir condición de carrera, haciendo que por más que haya paralelismo sea necesaria la sincronización.
 - Porque al agragar son más los boids que son necesarios actualizar, esto relentiza el proceso total tanto con y sin hilos, ya que al demorarse más tambien se demora más la sincronización, etc.
 - Ese sleep(5) actúa como un pequeño respiro para el procesador y ayuda a mantener un equilibrio entre rendimiento, paralelismo y eficiencia.
+-Siento que el enfoque sin hilos puede ser más eficiente en este caso, porque evita la sobrecarga de sincronización y los bloqueos por lock(). El enfoque con hilos puede aprovechar varios núcleos, pero al compartir el mismo vector y tener alta contención, pierde gran parte del beneficio del paralelismo.
+- El enfoque sin hilos es más eficiente porque todo ocurre en orden y sin esperas. En cambio, el con hilos necesita usar lock() y unlock() para proteger el vector compartido, lo que hace que los hilos se bloqueen entre sí y el paralelismo real se reduzca, generando más sobrecarga que nada, aunque este pensamiento inicial se puede ver debatido por las pruebas que hice al inicio de esta actividad donde teniendo más boids el procesador con hilos tenia más fps que el que tiene hilos, además de las pruebas con el fractal, pienso que realmente se inclina más a que el uso de hilos es más eficiente porque logra dividir las tareas, el cambio realmente se ve con el uso de más hilos como en el fractal donde si fue mucho más la eficiencia, pero en casos como este siento que vale más la pena el de un solo hilo.
+- Si no se usaran lock() y unlock(), ambos hilos podrían acceder al vector de boids al mismo tiempo, uno leyéndolo mientras el otro lo modifica. Esto causaría condiciones de carrera, donde los datos se dañan o cambian de forma extraña y caótica, el programa podría mostrar boids moviéndose de forma errática, congelarse o incluso crashear si el vector cambia de tamaño mientras se está recorriendo.
+- Si, pienso que la aplicación se congelaría, esto debido a que mientras el hilo trabajador recorre el ``vector<Boid>`` para actualizar posiciones, el hilo principal, al añadir un nuevo boid, puede hacer que el vector cambie de tamaño.
+Esto invalida los iteradores que el hilo trabajador está usando, esto congelaría la aplicación
 
+## Autoevaluación
+### Nota propuesta: 3.9
+### Actividad 01: 1/1
+Esta actividad era el incio de esta unidad y estaba enfocada a un primer acercamiento y preguntas que siento [respondí](#1) bien y en su totalidad, probando y dejando evidencias de las pruebas.
+### Actividad 02: 1/1
+Siento que [identifiqué](#2) y comprendí bien el concepto de la condición de carrera y los problemas que se podian general al utilizar varios hilos, como además su solución a traves del mutex.
+### Actividad 03: 0.9/1
+Siento que [experimenté](#3) bien y propuse buenas hipótesis dejando también pruebas de ello, pero quizas podría haber propuesto más experimentos además del propuesto en el texto guía.
+### Actividad 04: 1/1
+Siento que [respondí](#4) bien a las preguntas que se encontraban en esta unidad, demostrando una comprensión del tema.
+### Actividad 05: 0/1
