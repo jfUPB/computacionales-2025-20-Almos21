@@ -35,11 +35,12 @@ La diferencia entre la concurrencia y un paralelismo se encuentra en que la conc
 Un ejemplo con esta condición sería por ejemplo que el counter esté en 7, y unos hilos A y B estan sumandole valores pero no hay nada que evite que a la vez accedan a el counter entonces ambos tomarán el valor 7, le sumarán 8 y pondran esto como el valor final, esto significando que se perdío una cuenta ya que de otra manera usando por ejemplo un mutex entonces se sumarían en total 2 al valor original.
 
 ## Actividad 03
+<a name="so"></a>
 Este es el resultado que se obtiene al realizar ambos códigos, cambiando los valores del cuadro y la rapidez del programa, el segundo lo sentí más rápido.
 <img width="1020" height="761" alt="image" src="https://github.com/user-attachments/assets/0d5b95c9-f5e0-4813-beaa-5b11b5ecb42b" />
 
 Para experimentar decidí intentar cambiar el número de hilos como se proponía en el texto, primero que nada los bajé a 6, para tener una primera idea este era el tiempo que aparecía anteriormente al usar la cantidad normal (12)
-<a name="3"></a>
+
 <img width="350" height="133" alt="image" src="https://github.com/user-attachments/assets/b1317f8d-7d49-49f7-a3df-fd5d9ac776ae" />
 
 Lo primero que podía esperar era pensar que el tiempo usado aumentaría, ya que de manera secuencial este era 0.1 seg, al ejecutar pero ahora con 6 hilos me encontre con que paso del tiempo anterior a estos 0.66 seg, esto debe ser debido a que al usar menor cantidad de hilos el programa se demora más haciendo los procesos ya que lo divide entre menor cantidad de hilos.
@@ -53,7 +54,7 @@ Lo bajé después a 2 hilos únicamente y obtuve este tiempo
 Este experimento me sirvió para entender como afecta el uso de diferentes cantidades de hilos en el programa y que tanto impactan a el programa final, esto es algo que a esta escala puede parecer muy poco pero estoy seguro que el uso de esto para procesos mucho más grandes puede ser mucha más que unicamente 0.04 segs de diferencia.
 
 ## Actividad 04
-<a name="4"></a>
+<a name="pa"></a>
 Estos son los datos del programa con un solo hilo al inicio y al aumentar hasta cierto punto
 <img width="132" height="57" alt="image" src="https://github.com/user-attachments/assets/dcbdd1f7-a415-49eb-ab8a-9561f35f94c4" />
 <img width="133" height="82" alt="image" src="https://github.com/user-attachments/assets/29e28eca-3c69-405c-b9ba-703d4498e6ed" />
@@ -98,7 +99,7 @@ Esta actividad era el incio de esta unidad y estaba enfocada a un primer acercam
 ### Actividad 02: 1/1
 Siento que [identifiqué](#2) y comprendí bien el concepto de la condición de carrera y los problemas que se podian general al utilizar varios hilos, como además su solución a traves del mutex.
 ### Actividad 03: 0.9/1
-Siento que [experimenté](#3) bien y propuse buenas hipótesis dejando también pruebas de ello, pero quizas podría haber propuesto más experimentos además del propuesto en el texto guía.
+Siento que [experimenté](#so) bien y propuse buenas hipótesis dejando también pruebas de ello, pero quizas podría haber propuesto más experimentos además del propuesto en el texto guía.
 ### Actividad 04: 1/1
-Siento que [respondí](#4) bien a las preguntas que se encontraban en esta unidad, demostrando una comprensión del tema.
+Siento que [respondí](#pa) bien a las preguntas que se encontraban en esta unidad, demostrando una comprensión del tema.
 ### Actividad 05: 0/1
