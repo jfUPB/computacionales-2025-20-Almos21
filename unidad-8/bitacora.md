@@ -3,7 +3,7 @@
 Al ejecutar el programa veo este circulo moviendose a lo largo del espacio, esto es parecido a lo que esperaba ver ya que mirando por muy encima el código vi como creaba un círculo y en la función Draw() se iba dibujando en diferente posición.
 
 <img width="401" height="424" alt="image" src="https://github.com/user-attachments/assets/6dce72b3-7991-45ac-b3e4-88375fcbb8d1" />
-<a name="1"></a>
+<a name="que"></a>
 Después pasó algo interesante y es que al apretar con click se congelaba todo y disminuía de tamaño la esfera, creo que ocurre porque alguna parte del código bloquea el programa, no permitiendo que se actualice correctamente.
 
 <img width="394" height="427" alt="image" src="https://github.com/user-attachments/assets/2b97b545-f942-4668-ac7c-91360118cb36" />
@@ -17,7 +17,7 @@ Esto me hace pensar que lo que ocurre es que el hilo se ejecuta al mismo tiempo 
 La diferencia entre la concurrencia y un paralelismo se encuentra en que la concurrencia realmente no ejecuta dos procesos al mismo tiempo, sino que intercala entre ellos para dar una idea de simultaneidad. El paralelísmo por otro lado si ejecuta ambos procesos al mismo tiempo, esta diferencia es vital al momento de ejecutar un programa ya que una concurrencia puede ser menos eficiente y relentizar el funcionamiento del programa, al no estarse ejecutando al mismo tiempo con diferentes o múltiples núcleos lo que ocurre es que el rendimiento es menor.
 
 ## Actividad 02
-<a name="2"></a>
+<a name="la"></a>
 - La variable esta siendo protegida en esta parte del código
 ```` c++
   lock();
@@ -95,9 +95,9 @@ Esto invalida los iteradores que el hilo trabajador está usando, esto congelar�
 ## Autoevaluación
 ### Nota propuesta: 3.9
 ### Actividad 01: 1/1
-Esta actividad era el incio de esta unidad y estaba enfocada a un primer acercamiento y preguntas que siento [respondí](#1) bien y en su totalidad, probando y dejando evidencias de las pruebas.
+Esta actividad era el incio de esta unidad y estaba enfocada a un primer acercamiento y preguntas que siento [respondí](#que) bien y en su totalidad, probando y dejando evidencias de las pruebas.
 ### Actividad 02: 1/1
-Siento que [identifiqué](#2) y comprendí bien el concepto de la condición de carrera y los problemas que se podian general al utilizar varios hilos, como además su solución a traves del mutex.
+Siento que [identifiqué](#la) y comprendí bien el concepto de la condición de carrera y los problemas que se podian general al utilizar varios hilos, como además su solución a traves del mutex.
 ### Actividad 03: 0.9/1
 Siento que [experimenté](#so) bien y propuse buenas hipótesis dejando también pruebas de ello, pero quizas podría haber propuesto más experimentos además del propuesto en el texto guía.
 ### Actividad 04: 1/1
